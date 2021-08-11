@@ -1,4 +1,4 @@
-import { initBoard, move } from "../src/go";
+import { initBoard } from "../../go-react/src/services/go";
 import STONE from "../src/STONE";
 import ERROR from "../src/error.json";
 
@@ -6,10 +6,18 @@ test("Sample", () => {
   expect(1).toEqual(1);
 });
 
+describe("Pretty nothing's on here", () => {
+  test("Nothing move", () => {
+    const initFormat = "";
+    const { board } = initBoard(initFormat);
+    expect(board[0]).toEqual(STONE.EMPTY);
+  });
+});
+
 describe("Put the stones down on the board", () => {
   test("call Go function", () => {
     const initFormat = "60 61 62 63 64 65 66 67";
-    const { board, counts, groups } = initBoard(initFormat);
+    const { board, counts } = initBoard(initFormat);
     expect(counts).toEqual({ 0: 0, 1: 0 });
   });
 
@@ -26,19 +34,19 @@ describe("catch if black can - a stone", () => {
   test("catch aroung 4 ways", () => {
     const initFormat = "22 37 40 41 42 56 60";
     const { board, counts } = initBoard(initFormat);
-    expect(board[41]).toBe(undefined);
+    expect(board[41]).toBe(STONE.EMPTY);
     expect(counts).toEqual({ 0: 1, 1: 0 });
   });
   test("catch aroung 3 ways", () => {
     const initFormat = "38 57 58 11 76";
     const { board, counts } = initBoard(initFormat);
-    expect(board[57]).toBe(undefined);
+    expect(board[57]).toBe(STONE.EMPTY);
     expect(counts).toEqual({ 0: 1, 1: 0 });
   });
   test("catch aroung 2 ways", () => {
     const initFormat = "1 0 19";
     const { board, counts } = initBoard(initFormat);
-    expect(board[0]).toBe(undefined);
+    expect(board[0]).toBe(STONE.EMPTY);
     expect(counts).toEqual({ 0: 1, 1: 0 });
   });
 });
@@ -47,22 +55,22 @@ describe("catch if white can - stones", () => {
   test("along with edge", () => {
     const initFormat = "0 19 1 20 2 21 22 3";
     const { board, counts } = initBoard(initFormat);
-    expect(board[0]).toBe(undefined);
-    expect(board[2]).toBe(undefined);
+    expect(board[0]).toBe(STONE.EMPTY);
+    expect(board[2]).toBe(STONE.EMPTY);
     expect(counts).toEqual({ 0: 0, 1: 3 });
   });
   test("make a box and let them alive", () => {
     const initFormat = "1 0 20 19 2 39 21 40 18 22 17 4 16 3 ";
     const { board, counts } = initBoard(initFormat);
-    expect(board[1]).toBe(undefined);
-    expect(board[21]).toBe(undefined);
+    expect(board[1]).toBe(STONE.EMPTY);
+    expect(board[21]).toBe(STONE.EMPTY);
     expect(counts).toEqual({ 0: 0, 1: 4 });
   });
   test("double kill", () => {
     const initFormat = "1 0 3 20 18 22 17 4 16 2";
     const { board, counts } = initBoard(initFormat);
-    expect(board[1]).toBe(undefined);
-    expect(board[3]).toBe(undefined);
+    expect(board[1]).toBe(STONE.EMPTY);
+    expect(board[3]).toBe(STONE.EMPTY);
     expect(counts).toEqual({ 0: 0, 1: 2 });
   });
 });
@@ -73,6 +81,8 @@ describe("never can be killed", () => {
     expect(() => initBoard(initFormat)).toThrow(ERROR.CAN_BE_KILLED);
   });
 });
+
+// TODO: MOVE
 
 /*
 0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18
