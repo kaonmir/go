@@ -12,6 +12,10 @@ describe("Pretty nothing's on here", () => {
     const { board } = initBoard(initFormat);
     expect(board[0]).toEqual(STONE.EMPTY);
   });
+  test("never die at #2", () => {
+    const initFormat = "0 18 20 27 2 1";
+    expect(() => initBoard(initFormat)).toThrow(ERROR.CAN_BE_KILLED);
+  });
 });
 
 describe("Put the stones down on the board", () => {
@@ -75,10 +79,13 @@ describe("catch if white can - stones", () => {
   });
 });
 
-describe("never can be killed", () => {
-  test("never die at #2", () => {
-    const initFormat = "0 18 20 27 2 1";
-    expect(() => initBoard(initFormat)).toThrow(ERROR.CAN_BE_KILLED);
+describe("Catch at the right side", () => {
+  test("Right side one catch up", () => {
+    const initFormat = "18 17 36 37";
+    const { board, counts } = initBoard(initFormat);
+    expect(board[18]).toBe(STONE.EMPTY);
+    expect(board[17]).toBe(STONE.WHITE);
+    expect(counts).toEqual({ 0: 0, 1: 1 });
   });
 });
 
