@@ -48,8 +48,10 @@ export const move = (board: STONE[], cur: number, turn: STONE): number => {
   const counts = cankill(board, cur);
 
   // TODO: 사방이 다른 색 돌로 둘러싸인 곳에는 착수할 수 없다. 단, 둘러싼 다른 색 돌 중 끊어진 부분이 있어서 단수가 되어있을 때는 착수가 가능하다. 물론 단수가 된 그 다른 색 돌은 잡힌다.
-  if (canbekilled(board, cur)) throw Error(ERROR.CAN_BE_KILLED);
-  else return counts;
+  if (canbekilled(board, cur)) {
+    board[cur] = STONE.EMPTY;
+    throw Error(ERROR.CAN_BE_KILLED);
+  } else return counts;
 };
 
 const canbekilled = (board: STONE[], cur: number) => {

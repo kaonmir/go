@@ -1,4 +1,4 @@
-import { initBoard } from "../../go-react/src/services/go";
+import { initBoard } from "../src/go";
 import STONE from "../src/STONE";
 import ERROR from "../src/error.json";
 
