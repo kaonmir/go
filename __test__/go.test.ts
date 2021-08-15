@@ -1,6 +1,6 @@
-import { initBoard } from "../src/go";
-import STONE from "../src/STONE";
-import ERROR from "../src/error.json";
+import { initBoard } from "../src/services/go";
+import STONE from "../src/services/STONE";
+import ERROR from "../src/services/error.json";
 
 test("Sample", () => {
   expect(1).toEqual(1);
