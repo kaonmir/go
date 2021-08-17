@@ -13,10 +13,11 @@ export async function registerAPI(
   res: express.Response
 ) {
   const { username, password } = req.body;
-
-  register(username, password)
-    .then((result) => res.json(result))
-    .catch((err) => res.status(400).send(err));
+  if (username && password) {
+    register(username, password)
+      .then((result) => res.json(result))
+      .catch((err) => res.status(400).send(err));
+  } else res.status(404).send("Input error");
 }
 
 /* ------------------------------------------ */
