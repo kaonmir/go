@@ -15,4 +15,4 @@ const UserSchema = new Schema<IUserDocument, IUserModel>(
 UserSchema.statics = { ...UserSchema.statics, ...statics };
 UserSchema.methods = { ...UserSchema.methods, ...methods };
 
-export default model<IUserDocument, IUserModel>("go", UserSchema);
+export default model<IUserDocument, IUserModel>("user", UserSchema);

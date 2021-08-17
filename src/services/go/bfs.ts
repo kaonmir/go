@@ -4,7 +4,7 @@ function bfs<T>(
   board: T[],
   cur: number,
   value: T,
-  visited: Boolean[],
+  visited: boolean[],
   answer: number[]
 ) {
   if (visited[cur] || board[cur] !== value) return;
@@ -20,7 +20,7 @@ function bfs<T>(
 function getAlliances<T>(board: T[], cur: number): number[] {
   const answer: number[] = [];
   const value = board[cur];
-  const visited = Array<Boolean>(19 * 19).fill(false);
+  const visited = Array<boolean>(19 * 19).fill(false);
 
   bfs(board, cur, value, visited, answer);
 

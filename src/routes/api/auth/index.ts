@@ -1,8 +1,27 @@
-import { Router } from "express";
-import * as controller from "./controller";
+import express, { Router } from "express";
+import { register } from "./controller";
 
 const router = Router();
 
-router.post("/register", controller.register);
+interface IRegisterBody {
+  username: string;
+  password: string;
+}
+
+export async function registerAPI(
+  req: express.Request<{}, {}, IRegisterBody>,
+  res: express.Response
+) {
+  const { username, password } = req.body;
+
+  register(username, password)
+    .then((result) => res.json(result))
+    .catch((err) => res.status(400).send(err));
+}
+
+/* ------------------------------------------ */
+/* /api/auth */
+
+router.post("/register", registerAPI);
 
 export default router;

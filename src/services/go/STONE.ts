@@ -9,11 +9,11 @@ type STONE = typeof STONE[keyof typeof STONE];
 
 export default STONE;
 
-export const isEnemy = (A: STONE, B: STONE): Boolean =>
+export const isEnemy = (A: STONE, B: STONE): boolean =>
   (A === STONE.BLACK && B === STONE.WHITE) ||
   (A === STONE.WHITE && B === STONE.BLACK);
 
-export const isEmpty = (stone: STONE): Boolean => stone === STONE.EMPTY;
+export const isEmpty = (stone: STONE): boolean => stone === STONE.EMPTY;
 
 export const getOtherSTONE = (stone: STONE) => {
   if (isEmpty(stone)) throw Error(ERROR.GET_EMPTY_STONE);
