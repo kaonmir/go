@@ -12,5 +12,10 @@
     "esModuleInterop": true,
     "typeRoots": ["./src/@types", "./node_modules/@types"]
   },
-  "include": ["src"]
+  "include": [
+    "src",
+    ".backup/user",
+    ".backup/auth",
+    ".backup/auth.middleware.ts"
+  ]
 }

@@ -1,6 +1,6 @@
 import express, { Router } from "express";
 import jwt from "jsonwebtoken";
-import { IUserType } from "../../../database/user/types";
+import { IUserType } from "../../../.backup/user/types";
 import {
   getAllGame,
   getGame,

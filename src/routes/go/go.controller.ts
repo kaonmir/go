@@ -1,7 +1,7 @@
-import { IUserType } from "../../../database/user/types";
-import UserModel from "../../../database/user/model";
-import GoModel from "../../../database/go/model";
-import { IGoDocument, IGoType } from "../../../database/go/types";
+import { IUserType } from "../../../.backup/user/types";
+import UserModel from "../../../.backup/user/model";
+import GoModel from "../../database/go/model";
+import { IGoDocument, IGoType } from "../../database/go/types";
 import e from "express";
 
 export async function getAllGame(username: string): Promise<IGoDocument[]> {
