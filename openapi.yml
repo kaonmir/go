@@ -1,0 +1,146 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: Local server
+    url: http://localhost:4000
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/kaonmir/GoAPI/1.0.0
+info:
+  description: Go API
+  version: "1.0.0"
+  title: Go API
+  contact:
+    email: sonjeff@naver.com
+  license:
+    name: Apache 2.0
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+tags:
+  - name: authentication
+    description: authentication
+
+paths:
+  /api/go/{id}:
+    get:
+      tags:
+        - crud
+      summary: get game from db using id
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+      responses:
+        200:
+          description: get a game
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Go"
+        400:
+          description: game no exists
+          $ref: "#/components/responses/400ParameterError"
+        401:
+          description: error
+          $ref: "#/components/responses/401AuthenticationError"
+  /api/go:
+    get:
+      tags:
+        - crud
+      summary: get all games from db
+      responses:
+        200:
+          description: get games
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Go"
+        400:
+          description: game no exists
+          $ref: "#/components/responses/400ParameterError"
+        401:
+          description: error
+          $ref: "#/components/responses/401AuthenticationError"
+
+    post:
+      tags:
+        - crud
+      summary: save game to db
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Go"
+      responses:
+        200:
+          description: successfully saved
+          $ref: "#/components/responses/200BooleanSuccess"
+        201:
+          description: successfully created and saved
+
+components:
+  responses:
+    200BooleanSuccess:
+      description: Successfully done
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                type: number
+                default: 200
+              result:
+                type: boolean
+
+    200JWTAuthentication:
+      description: return JWT value
+      content:
+        application/json:
+          schema:
+            properties:
+              jwt:
+                type: string
+                description: User's JWT value
+
+    400ParameterError:
+      description: 400 User sent wrong parameters
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    401AuthenticationError:
+      description: 401 Authentication Error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    404NotFound:
+      description: The specified resource was not found.
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: number
+        message:
+          type: string
+      required:
+        - code
+        - message
+    Go:
+      type: object
+      properties:
+        id:
+          type: string
+        # whiteid:
+        #   type: string
+        # blackid:
+        #   type: string
+        logs:
+          type: string
+      required:
+        - _id
+        - logs

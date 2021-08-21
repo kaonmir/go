@@ -4,22 +4,23 @@ import swaggerJSdoc from "swagger-jsdoc";
 
 const options = {
   swaggerDefinition: {
+    openapi: "3.0.0",
     info: {
-      title: "Test API",
+      title: "GO",
       version: "1.0.0",
       description: "test API with express",
-      contact: {
-        email: "sonjeff@naver.com",
-      },
-      license: {
-        name: "Apache 2.0",
-        url: "http://www.apache.org/licenses/LICENSE-2.0.html",
-      },
+      // contact: {
+      //   email: "sonjeff@naver.com",
+      // },
+      // license: {
+      //   name: "Apache 2.0",
+      //   url: "http://www.apache.org/licenses/LICENSE-2.0.html",
+      // },
     },
     host: "localhost:4000",
     basePath: "/",
   },
-  apis: ["./src/routes/*.ts", "./swagger/*"],
+  apis: ["./src/routes/swagger/**/*"],
 };
 
 const swaggerLoader = async (app: express.Express) => {
