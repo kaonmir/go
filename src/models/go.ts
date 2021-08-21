@@ -15,6 +15,7 @@ const goSchema = new mongoose.Schema<Go>({
   logs: {
     type: String,
     required: true,
+    match: /^([0-9]{1,2} )*([0-9]{1,2})$/,
   },
 });
 
@@ -28,7 +29,7 @@ const IGo: IModel<Go> = {
     return games as Go[];
   },
   getById: async (id: string) => {
-    const game = await GoModel.findById(id);
+    const game = await GoModel.findOne({ id });
     return game as Go;
   },
 
