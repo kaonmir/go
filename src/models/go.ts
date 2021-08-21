@@ -20,7 +20,7 @@ const goSchema = new mongoose.Schema<Go>({
 
 const GoModel = mongoose.model<Go>("Go", goSchema);
 
-// -- //
+// --- //
 
 const IGo: IModel<Go> = {
   getAll: async () => {
