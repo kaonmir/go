@@ -15,3 +15,12 @@ export async function createGame(props: Go): Promise<[number, Go?]> {
   const game = await goModel.create(props);
   return [200, game];
 }
+
+export async function updateGame(
+  id: string,
+  props: Go
+): Promise<[number, Go?]> {
+  const game = await goModel.updateById(id, props);
+  if (game === null) return [400];
+  return [200, game];
+}

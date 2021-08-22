@@ -20,7 +20,7 @@ const options = {
     host: "localhost:4000",
     basePath: "/",
   },
-  apis: ["./src/routes/swagger/**/*"],
+  apis: ["./src/routes/swagger/**/*", "./openapi.yml"],
 };
 
 const swaggerLoader = async (app: express.Express) => {

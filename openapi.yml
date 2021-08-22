@@ -42,6 +42,7 @@ paths:
         401:
           description: error
           $ref: "#/components/responses/401AuthenticationError"
+
   /api/go:
     get:
       tags:
@@ -62,7 +63,6 @@ paths:
         401:
           description: error
           $ref: "#/components/responses/401AuthenticationError"
-
     post:
       tags:
         - crud
@@ -79,6 +79,29 @@ paths:
           $ref: "#/components/responses/200BooleanSuccess"
         201:
           description: successfully created and saved
+    patch:
+      tags:
+        - crud
+      summary: patch game to db using id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Go"
+      responses:
+        200:
+          description: patch a game
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Go"
+        400:
+          description: game no exists
+          $ref: "#/components/responses/400ParameterError"
+        401:
+          description: error
+          $ref: "#/components/responses/401AuthenticationError"
 
 components:
   responses:

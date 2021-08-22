@@ -1,5 +1,6 @@
 import express from "express";
 import morgan from "morgan";
+import cors from "cors";
 import config from "../config";
 
 const expressLoader = async (app: express.Express) => {
@@ -7,6 +8,7 @@ const expressLoader = async (app: express.Express) => {
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
   app.use(morgan("dev"));
+  app.use(cors());
 
   app.set("jwt-secret", config.SECRET_KEY);
 };

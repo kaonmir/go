@@ -1,5 +1,5 @@
 import express, { Router, Request, Response } from "express";
-import { getGame, createGame, getAllGames } from "./go.controller";
+import { getGame, createGame, getAllGames, updateGame } from "./go.controller";
 import { v4 as uuidv4 } from "uuid";
 import config from "../../../config";
 
@@ -44,11 +44,21 @@ export async function createGameAPI(req: Request, res: Response) {
   handleResponse(createGame({ id, logs }), errorCodes, res);
 }
 
+export async function patchGameAPI(req: Request, res: Response) {
+  const errorCodes: { [code: number]: string } = {
+    400: "Game not exists",
+    401: "Authentication error",
+  };
+  const { logs, id } = req.body;
+  handleResponse(updateGame(id, { id, logs }), errorCodes, res);
+}
+
 /* ------------------------------------------ */
-/* /go */
+/* /api/go */
 
 router.get("/", getAllGameAPI);
 router.get("/:id", getGameAPI);
 router.post("/", createGameAPI);
+router.patch("/", patchGameAPI);
 
 export default router;

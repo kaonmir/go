@@ -25,19 +25,23 @@ const GoModel = mongoose.model<Go>("Go", goSchema);
 
 const IGo: IModel<Go> = {
   getAll: async () => {
-    const games = await GoModel.find();
-    return games as Go[];
+    const go = await GoModel.find();
+    return go as Go[];
   },
   getById: async (id: string) => {
-    const game = await GoModel.findOne({ id });
-    return game as Go;
+    const go = await GoModel.findOne({ id });
+    return go as Go;
   },
 
   create: async (props: Go): Promise<Go> => {
-    console.log(props);
-
     const go = await GoModel.create(props);
-    return go.toObject();
+    return go as Go;
+  },
+
+  updateById: async (id: string, props: Go): Promise<Go> => {
+    await GoModel.updateOne({ id }, { $set: props });
+    const go = await GoModel.findOne({ id });
+    return go as Go;
   },
 };
 
