@@ -1,9 +1,14 @@
-import dotenv from "dotenv";
+import { join } from "path";
+import { loggerConfig } from "./logger";
+import mongooseConfig from "./mongoose";
 
-dotenv.config();
+const { version } = require("../../package.json");
+export const rootDir = join(__dirname, "..");
 
-export default {
-  PORT: process.env.PORT!,
-  DATABASE_URL: process.env.MONGO_URI!,
-  SECRET_KEY: process.env.SECRET_KEY!,
+export const config: Partial<TsED.Configuration> = {
+  version,
+  rootDir,
+  logger: loggerConfig,
+  mongoose: mongooseConfig,
+  // additional shared configuration
 };
