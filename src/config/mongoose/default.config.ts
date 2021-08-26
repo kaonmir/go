@@ -1,5 +1,5 @@
 export default {
   id: "default",
-  url: process.env.DEFAULT_URL!,
+  url: process.env.MONGO_URI!,
   connectionOptions: {},
 };

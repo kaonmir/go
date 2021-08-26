@@ -1,5 +1,6 @@
 import { AcceptMime, BodyParams, Controller, Get, Inject } from "@tsed/common";
 import { Patch, PathParams, Post, QueryParams } from "@tsed/common";
+import { Authorize } from "@tsed/passport";
 import { ContentType, Property, Required, Returns } from "@tsed/schema";
 import { GoModel } from "src/models/mongo/GoModel";
 import { GoRepository } from "src/repositories/GoRepository";
@@ -16,9 +17,15 @@ export class GoController {
   }
 
   @Get("/")
+  @Authorize()
   @Returns(200, GoModel)
-  async get(@QueryParams("id") id: string): Promise<GoModel> {
-    return this.goRepo.findById(id);
+  async get(
+    @QueryParams("id") id: string,
+    @QueryParams("owner") owner: string
+  ): Promise<GoModel> {
+    console.log("-----", id, owner, "-----");
+
+    return this.goRepo.findOne({ _id: id, owner });
   }
 
   @Post("/")
