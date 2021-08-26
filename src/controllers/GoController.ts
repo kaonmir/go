@@ -1,30 +1,37 @@
-import { AcceptMime, BodyParams, Controller, Get, Inject } from "@tsed/common";
+import {
+  AcceptMime,
+  BodyParams,
+  Controller,
+  Get,
+  Inject,
+  Req,
+} from "@tsed/common";
 import { Patch, PathParams, Post, QueryParams } from "@tsed/common";
 import { Authorize } from "@tsed/passport";
 import { ContentType, Property, Required, Returns } from "@tsed/schema";
 import { GoModel } from "src/models/mongo/GoModel";
+import { UserInfoModel, UserInfoToken } from "src/models/mongo/UserInfoModel";
 import { GoRepository } from "src/repositories/GoRepository";
 
 @Controller("/go")
+@Authorize()
 export class GoController {
   @Inject(GoRepository) private goRepo: GoRepository;
 
   @Get("/all")
   @(Returns(200, Array).Of(GoModel))
   @(Returns(404, String).Description("No Found"))
-  async getAll(): Promise<GoModel[]> {
-    return this.goRepo.findAll();
+  async getAll(@Req() req: Req): Promise<GoModel[]> {
+    const user = req.user as UserInfoToken;
+    const owner = user.email;
+    return this.goRepo.find({ owner });
   }
 
   @Get("/")
-  @Authorize()
   @Returns(200, GoModel)
-  async get(
-    @QueryParams("id") id: string,
-    @QueryParams("owner") owner: string
-  ): Promise<GoModel> {
-    console.log("-----", id, owner, "-----");
-
+  async get(@Req() req: Req, @QueryParams("id") id: string): Promise<GoModel> {
+    const user = req.user as UserInfoToken;
+    const owner = user.email;
     return this.goRepo.findOne({ _id: id, owner });
   }
 

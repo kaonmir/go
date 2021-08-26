@@ -26,5 +26,5 @@ export class UserInfoToken {
   id: string;
 
   @Property()
-  token: string;
+  email: string;
 }

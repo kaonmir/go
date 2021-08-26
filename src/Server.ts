@@ -11,7 +11,7 @@ import "@tsed/swagger";
 // import "@tsed/mongoose";
 import { config, rootDir } from "./config";
 import { IndexCtrl } from "./controllers/pages/IndexController";
-import { UserInfoToken } from "./models/mongo/UserInfoModel";
+import { UserInfoModel, UserInfoToken } from "./models/mongo/UserInfoModel";
 import passport from "passport";
 import session from "express-session";
 
