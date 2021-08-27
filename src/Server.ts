@@ -1,5 +1,5 @@
-import { Configuration, Inject } from "@tsed/di";
-import { PlatformApplication } from "@tsed/common";
+import { Configuration } from "@tsed/di";
+import express from "express";
 import "@tsed/platform-express"; // /!\ keep this import
 import bodyParser from "body-parser";
 import compress from "compression";
@@ -33,7 +33,8 @@ import sessionConfig from "./config/session";
     compress({}),
     methodOverride(),
     cookieParser(Config.COOKIE_SECRET!),
-
+    express.json(),
+    express.urlencoded({ extended: true }),
     session(sessionConfig),
     passport.initialize(),
     passport.session(),
