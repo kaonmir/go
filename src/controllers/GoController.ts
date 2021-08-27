@@ -8,7 +8,7 @@ import {
 } from "@tsed/common";
 import { Patch, PathParams, Post, QueryParams } from "@tsed/common";
 import { Authorize } from "@tsed/passport";
-import { ContentType, Property, Required, Returns } from "@tsed/schema";
+import { ContentType, Name, Property, Required, Returns } from "@tsed/schema";
 import { GoModel } from "src/models/mongo/GoModel";
 import { UserInfoModel, UserInfoToken } from "src/models/mongo/UserInfoModel";
 import { GoRepository } from "src/repositories/GoRepository";
@@ -37,13 +37,20 @@ export class GoController {
 
   @Post("/")
   @Returns(200, GoModel)
-  create(@BodyParams() @Required() go: GoModel): Promise<GoModel> {
-    return this.goRepo.save(go);
+  create(
+    @Req() req: Req,
+    @BodyParams() @Required() go: GoModel
+  ): Promise<GoModel> {
+    const user = req.user as UserInfoToken;
+    go.owner = user.email;
+    return this.goRepo.create(go);
   }
 
+  // TODO
   @Patch("/")
   @Returns(200, GoModel)
   patch(
+    @Req() req: Req,
     @QueryParams("id") @Required() id: string,
     @BodyParams() @Required() go: GoModel
   ): Promise<GoModel> {

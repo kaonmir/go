@@ -45,7 +45,7 @@ import session from "express-session";
       },
     }),
     passport.initialize(),
-    passport.session(), // session 미들웨어 코드 뒤에 적용
+    passport.session(),
   ],
   passport: {
     userInfoModel: UserInfoToken,

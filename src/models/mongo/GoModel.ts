@@ -17,7 +17,6 @@ export class GoModel {
   _id: string;
 
   @Property()
-  @Required()
   owner: string;
 
   @Property()

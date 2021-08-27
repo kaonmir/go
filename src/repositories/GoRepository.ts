@@ -15,7 +15,8 @@ export class GoRepository {
     return go;
   };
   find = async (query: any) => await this.model.find(query).exec();
-  save = async (obj: GoModel): Promise<GoModel> => await this.model.create(obj);
+  create = async (obj: GoModel): Promise<GoModel> =>
+    await this.model.create(obj);
 
   async findById(id: string): Promise<GoModel> {
     const go = await this.model.findById(id);
