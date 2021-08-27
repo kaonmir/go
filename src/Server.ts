@@ -9,16 +9,19 @@ import cors from "cors";
 import "@tsed/ajv";
 import "@tsed/swagger";
 // import "@tsed/mongoose";
-import { config, rootDir } from "./config";
+import config, { rootDir } from "./config";
 import { IndexCtrl } from "./controllers/pages/IndexController";
-import { UserInfoModel, UserInfoToken } from "./models/mongo/UserInfoModel";
+import { UserInfoToken } from "./models/mongo/UserInfoModel";
 import passport from "passport";
 import session from "express-session";
+
+import * as Config from "./config/config";
+import sessionConfig from "./config/session";
 
 @Configuration({
   ...config,
   acceptMimes: ["application/json"],
-  httpPort: process.env.PORT || 8083,
+  httpPort: Config.PORT,
   httpsPort: false, // CHANGE
   mount: {
     "/api": [`${rootDir}/controllers/**/*.ts`],
@@ -29,21 +32,9 @@ import session from "express-session";
     cookieParser(),
     compress({}),
     methodOverride(),
-    bodyParser.json(),
-    bodyParser.urlencoded({
-      extended: true,
-    }),
+    cookieParser(Config.COOKIE_SECRET!),
 
-    cookieParser(process.env.COOKIE_SECRET!),
-    session({
-      resave: false,
-      saveUninitialized: false,
-      secret: process.env.COOKIE_SECRET!,
-      cookie: {
-        httpOnly: true,
-        secure: false,
-      },
-    }),
+    session(sessionConfig),
     passport.initialize(),
     passport.session(),
   ],
