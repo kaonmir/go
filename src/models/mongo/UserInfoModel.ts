@@ -8,7 +8,7 @@ import { Example, Max, Min, Property } from "@tsed/schema";
 })
 export class UserInfoModel {
   @ObjectID("id")
-  _id: string;
+  _id?: string;
 
   @Property()
   @Example("sonjeff@naver.com")

@@ -11,7 +11,7 @@ export class UserRepository {
   findAll = async () => await this.model.find({});
   findOne = async (query: any) => await this.model.findOne(query);
   find = async (query: any) => await this.model.find(query).exec();
-  save = async (obj: UserInfoModel): Promise<UserInfoModel> =>
+  create = async (obj: UserInfoModel): Promise<UserInfoModel> =>
     await this.model.create(obj);
 
   async findById(id: string): Promise<UserInfoModel> {
