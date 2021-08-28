@@ -1,7 +1,6 @@
 import { Inject, Injectable } from "@tsed/common";
 import { NotFound } from "@tsed/exceptions";
-import { MongooseModel, ObjectID } from "@tsed/mongoose";
-import { Model } from "mongoose";
+import { MongooseModel } from "@tsed/mongoose";
 import { UserInfoModel } from "../models/mongo/UserInfoModel";
 
 @Injectable()

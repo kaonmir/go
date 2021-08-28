@@ -1,6 +1,5 @@
-import { Model, ObjectID, PreHook, Schema, Unique } from "@tsed/mongoose";
-import { Ignore, MaxLength, MinLength, Required } from "@tsed/schema";
-import { Example, Max, Min, Property } from "@tsed/schema";
+import { Model, ObjectID, Unique } from "@tsed/mongoose";
+import { Required, Example, Property } from "@tsed/schema";
 
 @Model({
   //   connection: "default",

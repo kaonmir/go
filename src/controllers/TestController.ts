@@ -1,4 +1,4 @@
-import { Context, Controller, Get, UseBefore } from "@tsed/common";
+import { Context, Controller, Get } from "@tsed/common";
 
 @Controller("/test")
 export class TestController {

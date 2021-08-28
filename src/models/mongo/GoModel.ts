@@ -1,11 +1,5 @@
-import { Model, ObjectID, Schema } from "@tsed/mongoose";
-import {
-  CollectionOf,
-  Default,
-  Example,
-  Integer,
-  Required,
-} from "@tsed/schema";
+import { Model, ObjectID } from "@tsed/mongoose";
+import { CollectionOf, Default, Example, Integer } from "@tsed/schema";
 import { Max, Min, Property } from "@tsed/schema";
 
 @Model({

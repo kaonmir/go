@@ -1,7 +1,6 @@
 import { Configuration } from "@tsed/di";
 import express from "express";
 import "@tsed/platform-express"; // /!\ keep this import
-import bodyParser from "body-parser";
 import compress from "compression";
 import cookieParser from "cookie-parser";
 import methodOverride from "method-override";

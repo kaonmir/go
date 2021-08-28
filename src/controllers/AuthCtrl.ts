@@ -1,15 +1,7 @@
-import {
-  BodyParams,
-  Controller,
-  Get,
-  Inject,
-  Patch,
-  Post,
-  Res,
-} from "@tsed/common";
-import { Req } from "@tsed/common";
+import { BodyParams, Controller, Get, Inject, Patch } from "@tsed/common";
+import { Req, Post, Res } from "@tsed/common";
 import { Authenticate, Authorize } from "@tsed/passport";
-import { UserInfoModel, UserInfoToken } from "src/models/mongo/UserInfoModel";
+import { UserInfoToken } from "src/models/mongo/UserInfoModel";
 import { UserRepository } from "src/repositories/UserRepository";
 
 @Controller("/auth")
@@ -36,8 +28,10 @@ export class AuthCtrl {
   }
 
   @Get("/logout")
+  @Authorize("login")
   logout(@Req() req: Req, @Res() res: Res) {
     req.logout();
+    return "successfully logout";
   }
 
   @Patch("/update")

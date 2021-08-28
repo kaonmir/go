@@ -1,16 +1,9 @@
-import {
-  AcceptMime,
-  BodyParams,
-  Controller,
-  Get,
-  Inject,
-  Req,
-} from "@tsed/common";
-import { Patch, PathParams, Post, QueryParams } from "@tsed/common";
+import { BodyParams, Controller, Get, Inject, Req } from "@tsed/common";
+import { Patch, Post, QueryParams } from "@tsed/common";
 import { Authorize } from "@tsed/passport";
-import { ContentType, Name, Property, Required, Returns } from "@tsed/schema";
+import { Required, Returns } from "@tsed/schema";
 import { GoModel } from "src/models/mongo/GoModel";
-import { UserInfoModel, UserInfoToken } from "src/models/mongo/UserInfoModel";
+import { UserInfoToken } from "src/models/mongo/UserInfoModel";
 import { GoRepository } from "src/repositories/GoRepository";
 
 @Controller("/go")
