@@ -1,4 +1,11 @@
-import { BodyParams, Controller, Get, Inject, Patch } from "@tsed/common";
+import {
+  BodyParams,
+  Controller,
+  Get,
+  Inject,
+  Logger,
+  Patch,
+} from "@tsed/common";
 import { Req, Post, Res } from "@tsed/common";
 import { Authenticate, Authorize } from "@tsed/passport";
 import { UserInfoToken } from "src/models/mongo/UserInfoModel";
@@ -17,6 +24,13 @@ export class AuthCtrl {
     @BodyParams("password") password: string
   ) {
     return req.user;
+  }
+
+  @Get("/logined")
+  logined(@Req() req: Req) {
+    return {
+      logined: req.user ? true : false,
+    };
   }
 
   @Post("/register")
