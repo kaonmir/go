@@ -1,13 +1,13 @@
 import { BodyParams, Controller, Get, Inject, Req } from "@tsed/common";
 import { Patch, Post, QueryParams } from "@tsed/common";
-import { Authorize } from "@tsed/passport";
+import { Authenticate, Authorize } from "@tsed/passport";
 import { Required, Returns } from "@tsed/schema";
 import { GoModel } from "src/models/mongo/GoModel";
 import { UserInfoToken } from "src/models/mongo/UserInfoModel";
 import { GoRepository } from "src/repositories/GoRepository";
 
 @Controller("/go")
-@Authorize()
+@Authenticate("jwt")
 export class GoController {
   @Inject(GoRepository) private goRepo: GoRepository;
 
@@ -15,6 +15,8 @@ export class GoController {
   @(Returns(200, Array).Of(GoModel))
   @(Returns(404, String).Description("No Found"))
   async getAll(@Req() req: Req): Promise<GoModel[]> {
+    console.log(req.user);
+
     const user = req.user as UserInfoToken;
     const owner = user.email;
     return this.goRepo.find({ owner });
