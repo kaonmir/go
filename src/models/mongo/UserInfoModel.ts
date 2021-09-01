@@ -1,5 +1,5 @@
 import { Model, ObjectID, Unique } from "@tsed/mongoose";
-import { Required, Example, Property } from "@tsed/schema";
+import { Required, Example, Property, DateTime } from "@tsed/schema";
 
 @Model({
   //   connection: "default",
@@ -26,4 +26,8 @@ export class UserInfoToken {
 
   @Property()
   email: string;
+
+  @Property()
+  @DateTime()
+  expiredDate: Date;
 }

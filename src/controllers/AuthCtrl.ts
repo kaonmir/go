@@ -1,57 +1,41 @@
-import {
-  BodyParams,
-  Controller,
-  Get,
-  Inject,
-  Logger,
-  Patch,
-} from "@tsed/common";
-import { Req, Post, Res } from "@tsed/common";
-import { Authenticate, Authorize } from "@tsed/passport";
-import { UserInfoToken } from "src/models/mongo/UserInfoModel";
+import { BodyParams, Controller, Inject, Patch } from "@tsed/common";
+import { Req, Post, ProviderScope, Scope } from "@tsed/common";
+import { Authenticate } from "@tsed/passport";
+import { Returns } from "@tsed/schema";
+import { UserInfoModel, UserInfoToken } from "src/models/mongo/UserInfoModel";
 import { UserRepository } from "src/repositories/UserRepository";
+import { AuthService } from "src/services/AuthService";
 
 @Controller("/auth")
-// @Scope(ProviderScope.SINGLETON)
+@Scope(ProviderScope.SINGLETON)
 export class AuthCtrl {
   @Inject(UserRepository) private userRepo: UserRepository;
+  @Inject() private authService: AuthService;
 
   @Post("/login")
-  @Authenticate("login")
-  login(
-    @Req() req: Req,
+  @(Returns(200, String).ContentType("plain/jwt"))
+  async login(
     @BodyParams("email") email: string,
     @BodyParams("password") password: string
-  ) {
-    return req.user;
-  }
-
-  @Get("/logined")
-  logined(@Req() req: Req) {
-    return {
-      logined: req.user ? true : false,
-    };
+  ): Promise<string> {
+    const token = await this.authService.login(email, password);
+    return token;
   }
 
   @Post("/register")
+  @(Returns(200).ContentType("application/json"))
   register(
     @BodyParams("email") email: string,
     @BodyParams("password") password: string
   ) {
-    return this.userRepo.create({ email, password });
-  }
-
-  @Get("/logout")
-  @Authorize("login")
-  logout(@Req() req: Req, @Res() res: Res) {
-    req.logout();
-    return "successfully logout";
+    this.userRepo.create({ email, password });
   }
 
   @Patch("/update")
-  @Authorize("login")
+  @Authenticate("jwt")
+  @(Returns(200).ContentType("application/json"))
   update(@Req() req: Req, @BodyParams("password") password: string) {
     const { id, email } = req.user as UserInfoToken;
-    return this.userRepo.updateById(id, { email, password });
+    this.userRepo.updateById(id, { email, password });
   }
 }

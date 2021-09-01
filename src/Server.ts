@@ -34,13 +34,13 @@ import sessionConfig from "./config/session";
     cookieParser(Config.COOKIE_SECRET!),
     express.json(),
     express.urlencoded({ extended: true }),
-    session(sessionConfig),
+    // session(sessionConfig),
     passport.initialize(),
-    passport.session(),
+    // passport.session(),
   ],
-  passport: {
-    userInfoModel: UserInfoToken,
-  },
+  // passport: {
+  //   userInfoModel: UserInfoToken,
+  // },
   swagger: [
     {
       path: "/v3/docs",

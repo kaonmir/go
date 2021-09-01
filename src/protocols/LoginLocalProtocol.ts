@@ -1,4 +1,4 @@
-import { BodyParams, Req } from "@tsed/common";
+import { BodyParams, Inject, Req } from "@tsed/common";
 import { OnInstall, OnVerify, Protocol } from "@tsed/passport";
 import { IStrategyOptions, Strategy } from "passport-local";
 import { UserInfoModel } from "../models/mongo/UserInfoModel";
@@ -13,12 +13,12 @@ import { UserRepository } from "../repositories/UserRepository";
   },
 })
 export class LoginLocalProtocol implements OnVerify, OnInstall {
-  constructor(private UserRepository: UserRepository) {}
+  @Inject() private userRepository: UserRepository;
 
   async $onVerify(@Req() request: Req, @BodyParams() userInfo: UserInfoModel) {
     const { email, password } = userInfo;
 
-    const user = await this.UserRepository.findOne({ email });
+    const user = await this.userRepository.findOne({ email });
 
     if (!user) {
       return false;
